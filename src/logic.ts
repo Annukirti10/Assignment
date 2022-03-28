@@ -32,6 +32,9 @@ class logic {
                 state: req.body.state,
                 phoneNumber: req.body.phoneNumber
             })
+            // 
+            // 
+            // 
 
             // const token = doc.generateAuthToken();
 
