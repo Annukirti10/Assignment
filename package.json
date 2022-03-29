@@ -2,7 +2,7 @@
   "name": "registration",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "../view/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,6 +24,8 @@
     "jsonwebtoken": "^8.5.1",
     "md5": "^2.3.0",
     "mongodb": "^4.4.1",
-    "mongoose": "^6.2.7"
+    "mongoose": "^6.2.7",
+    "mosca": "^0.6.0",
+    "mqtt": "^4.3.7"
   }
 }
