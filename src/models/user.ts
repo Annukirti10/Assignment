@@ -1,5 +1,5 @@
 import {Schema, model} from 'mongoose'
-import jwt from "jsonwebtoken"
+import jwt, { JwtPayload } from "jsonwebtoken"
 
 interface User {
     email : String;
@@ -32,7 +32,7 @@ const schema = new Schema<User> ({
 
 schema.methods.generateAuthToken = async function () {
     try{
-        const token = jwt.sign({_id : this._id.toString()}, "secretKey")
+        const token : string | JwtPayload = jwt.sign({_id : this._id.toString()}, "secretKey")
         await this.save();
         return token;
     }

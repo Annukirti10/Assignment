@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction} from "express";
-import jwt from "jsonwebtoken";
-
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 export default function verifyToken(req: Request, res: Response, next: NextFunction) : void {
 
@@ -9,12 +8,13 @@ export default function verifyToken(req: Request, res: Response, next: NextFunct
         res.send({ msg: "Please enter the token" })
     }
     else {
-        const userVer : any = jwt.verify(`${req.headers["authorization"]}`, "secretKey");
-        if(!userVer){
+        const jwtSecret = String(process.env.JWT_SECRET);
+        const userVerification : string | JwtPayload = jwt.verify(`${req.headers["authorization"]}`, jwtSecret);
+        if(!userVerification){
             res.send({ msg: "Authentication error" })
         }
         else{
-            res.json("Authentication successful")
+            req.body.id = userVerification;
             next();
         }
     }
