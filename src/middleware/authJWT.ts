@@ -2,7 +2,6 @@ import { Request, Response, NextFunction} from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
 export default function verifyToken(req: Request, res: Response, next: NextFunction) : void {
-
     const token : string | undefined = req.headers["authorization"];
     if (!token) {
         res.send({ msg: "Please enter the token" })

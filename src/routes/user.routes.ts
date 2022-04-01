@@ -1,8 +1,8 @@
 import express from 'express'
 import logic from '../controller/user.controller';
 import verifyToken from '../middleware/authJWT';
-const api = express()
 
+const api = express()
 const logicBuild = new logic()
 
 api.get("/get", verifyToken, logicBuild.getData)

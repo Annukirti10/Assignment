@@ -1,7 +1,7 @@
 {
-  "name": "registration",
+  "name": "node-project",
   "version": "1.0.0",
-  "description": "Registration Form",
+  "description": "Implementing the various APIs",
   "main": "../index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

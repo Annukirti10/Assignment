@@ -2,9 +2,7 @@ import { Request, Response } from "express";
 import user from '../models/user'
 import md5 from "md5"
 
-
 class logic {
-
     getData = async (req: Request, res: Response) => {
         const userId = req.body.id._id;
         const userDetail: any = await user.findOne({ _id: userId });
@@ -14,7 +12,6 @@ class logic {
         else {
             res.json(userDetail)
         }
-
     }
 
     signUp = async (req: Request, res: Response) => {
@@ -47,7 +44,6 @@ class logic {
         try {
             const email: String = req.body.email;
             const password: String = md5((req.body.password).toString());
-
             const userDetail: any = await user.findOne({ email: email });
             if (password === userDetail.password) {
                 if (userDetail.activationStatus === "active") {
@@ -61,7 +57,6 @@ class logic {
             else {
                 res.json( "invalid password" )
             }
-
             const token = await userDetail.generateAuthToken();
             console.log(token)
         }
@@ -82,12 +77,9 @@ class logic {
                 else{
                     res.json("The user is deactivated. Pls reactivate the account")
                 }
-                
-
             } else {
                 res.json("Info didn't match")
             }
-
         }
         catch (err) {
             console.log(err)
@@ -99,19 +91,19 @@ class logic {
             const userId = req.body.id._id;
             const result: any = await user.findOneAndUpdate({ _id: userId }, { activationStatus: "inactive" });
             await result.save();
-            res.send("deleted")
-
+            res.json("deleted")
         }
         catch (err) {
             console.log(err)
         }
     }
+    
     reactivate = async (req: Request, res: Response) => {
         try {
             const userId = req.body.id._id;
             const result: any = await user.findOneAndUpdate({ _id: userId }, { activationStatus: "active" });
             await result.save();
-            res.send("Activated")
+            res.json("Activated")
         }
         catch (err) {
             console.log(err)

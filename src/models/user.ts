@@ -46,7 +46,6 @@ const user = model<User>('User', schema)
 async function fun(){
     await user.init();
 }
-
 fun();
 
 export default user
