@@ -1,0 +1,28 @@
+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
+
+
+git token
+
+
+
+
+mqttServer = async (req: Request, res: Response) => {
+        const userVer: any = jwt.verify(`${req.headers["authorization"]}`, "secretKey");
+        if (!userVer) {
+            res.send({ msg: "Authentication error" })
+
+        }
+        else {
+            const mosca = require('mosca');
+
+            const settings = {
+                port: 2000
+            }
+            const server = new mosca.Server(settings);
+
+            server.on('ready', () => {
+                console.log("server ready");
+                res.json("Server ready")
+            })``
+        }
+    }

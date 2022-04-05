@@ -7,7 +7,7 @@ interface User {
     cpassword : String;
     fname : String;
     lname : String;
-    dob : String;
+    dob : Date;
     city : String;
     state : String;
     phoneNumber : Number,
@@ -22,7 +22,7 @@ const schema = new Schema<User> ({
     cpassword : {type : String, required : true, minlength : 3},
     fname : {type : String, required : true},
     lname : {type : String, required : true},
-    dob : {type : String, required : true},
+    dob : {type : Date, required : true},
     city : {type : String, required : true},
     state : {type : String, required : true},
     phoneNumber : {type : Number, required : true, minlength: 10},
@@ -33,7 +33,6 @@ const schema = new Schema<User> ({
 schema.methods.generateAuthToken = async function () {
     try{
         const token : string | JwtPayload = jwt.sign({_id : this._id.toString()}, "secretKey")
-        await this.save();
         return token;
     }
     catch(error){
