@@ -1,5 +1,5 @@
 import {Schema, model} from 'mongoose'
-import jwt from "jsonwebtoken"
+import jwt, { JwtPayload } from "jsonwebtoken"
 
 interface User {
     email : String;
@@ -7,12 +7,12 @@ interface User {
     cpassword : String;
     fname : String;
     lname : String;
-    dob : String;
+    dob : Date;
     city : String;
     state : String;
     phoneNumber : Number,
     tokens : String,
-    status : String,
+    activationStatus : String,
     generateAuthToken(): string
 }
 
@@ -22,18 +22,17 @@ const schema = new Schema<User> ({
     cpassword : {type : String, required : true, minlength : 3},
     fname : {type : String, required : true},
     lname : {type : String, required : true},
-    dob : {type : String, required : true},
+    dob : {type : Date, required : true},
     city : {type : String, required : true},
     state : {type : String, required : true},
     phoneNumber : {type : Number, required : true, minlength: 10},
-    status : {type : String, required : true, default : "active"},
+    activationStatus : {type : String, required : true, default : "active"},
     tokens : {type:String}
 });
 
 schema.methods.generateAuthToken = async function () {
     try{
-        const token = jwt.sign({_id : this._id.toString()}, "secretKey")
-        await this.save();
+        const token : string | JwtPayload = jwt.sign({_id : this._id.toString()}, "secretKey")
         return token;
     }
     catch(error){
@@ -46,10 +45,12 @@ const user = model<User>('User', schema)
 async function fun(){
     await user.init();
 }
-
 fun();
 
 export default user
+
+
+
 
 
 

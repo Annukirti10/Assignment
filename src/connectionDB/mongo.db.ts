@@ -1,11 +1,12 @@
 import mongoose from "mongoose"
-
 const connection =  con().catch(err => console.log("error"));
-
 
 async function con() : Promise<void> {
     try{
-        await mongoose.connect("mongodb://localhost:27017/Register")
+        const host = process.env.LOCAL_HOST
+        const dbName = process.env.DB_NAME
+        const connectionString = `mongodb://${host}/${dbName}` 
+        await mongoose.connect(connectionString)
         console.log("connected to db")
     }
     catch(err){

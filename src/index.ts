@@ -1,14 +1,17 @@
+import dotenv  from "dotenv/config"
 import express from 'express'
-import connection from './connection' 
-import api from './routes'
+import connection from './connectionDB/mongo.db' 
+import api from './routes/user.routes'
 const app = express()
+dotenv
 
 app.use(express.json())
-
 connection
+
+const port = process.env.PORT;
 
 app.use(api);
 
-app.listen(4000, () => {
+app.listen(port, () => {
     console.log("server running")
 })
